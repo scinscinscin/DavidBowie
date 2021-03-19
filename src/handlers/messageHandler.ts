@@ -1,23 +1,8 @@
-import fs from "fs";
 import { Message } from "discord.js";
-import {
-    Command,
-    CommandInput,
-    CommandOutput,
-    Commands,
-} from "../types/CommandTypes";
+import { CommandInput, CommandOutput } from "../types/CommandTypes";
+import { commands } from "../daemons/commandsLoader";
 const { client } = global;
 const sendMsg = require("../utils/sendMsg");
-
-//load commands
-const commands: Commands = {};
-fs.readdirSync("./src/commands/", { withFileTypes: true })
-    .filter((ent) => ent.isFile())
-    .map((file) => file.name.slice(0, -3))
-    .forEach((cmd) => {
-        let command: Command = require(`../commands/${cmd}`);
-        commands[command.cmd.name] = command;
-    });
 
 client.on(
     "message",
@@ -73,6 +58,9 @@ client.on(
             };
         }
 
-        sendMsg(response, authorName, channel);
+        let sentMessage: Message = await sendMsg(response, authorName, channel);
+        if (commands[command]["callback"] !== undefined) {
+            commands[command]["callback"]!(sentMessage);
+        }
     }
 );

@@ -2,17 +2,26 @@ import {
     DMChannel,
     Guild,
     Message,
+    MessageReaction,
     NewsChannel,
+    PartialUser,
     TextChannel,
+    User,
 } from "discord.js";
 
 export type CommandCategory = "Utilities" | "Fun" | "Moderation";
 
 export interface Command {
     cmd: (params: CommandInput) => Promise<CommandOutput> | CommandOutput;
+    callback?: (params: Message) => Promise<void> | void;
+    reactionHandler?: (
+        reaction: MessageReaction,
+        user: User | PartialUser,
+        event: "added" | "removed"
+    ) => Promise<void> | void;
     category: CommandCategory;
     helpMsg: string;
-    requiresAdmin: boolean;
+    requiresAdmin?: boolean;
     sendsMessage: boolean;
 }
 
