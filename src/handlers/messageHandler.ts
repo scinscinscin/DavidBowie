@@ -1,8 +1,8 @@
 import { Message } from "discord.js";
 import { CommandInput, CommandOutput } from "../types/CommandTypes";
 import { commands } from "../daemons/commandsLoader";
+import { messageBuilder } from "../utils/messageBuilder";
 const { client } = global;
-const sendMsg = require("../utils/sendMsg");
 
 client.on(
     "message",
@@ -42,11 +42,9 @@ client.on(
         };
 
         let response: CommandOutput = await commands[command]["cmd"](params);
+        if (commands[command].sendsMessage === false) return; // command does not send anything
 
-        if (
-            (response === undefined || response.fields.length === 0) &&
-            commands[command].sendsMessage === true
-        ) {
+        if (response === undefined || response.fields.length === 0) {
             response = {
                 color: "red",
                 fields: [
@@ -58,7 +56,10 @@ client.on(
             };
         }
 
-        let sentMessage: Message = await sendMsg(response, authorName, channel);
+        let sentMessage: Message = await channel.send(
+            messageBuilder(response, authorName)
+        );
+
         if (commands[command]["callback"] !== undefined) {
             commands[command]["callback"]!(sentMessage);
         }
