@@ -12,4 +12,4 @@ The files each export an object that follows the `Command` interface.
 
 This object contains information about the command like its' description and if it sends a message or requires admin permissions
 
-The object also contains functions that a handler could call. For example, the [messageHandler](../src/handlers/messageHandler.ts) calls the export's cmd property while the [reactionHandler](../src/handlers/reactionHandler.ts) calls the object's reactionHandler property
+The object also contains functions that a handler could call. For example, the [messageHandler](../src/handlers/messageHandler.ts) calls the object's cmd property while the [reactionHandler](../src/handlers/reactionHandler.ts) calls the object's reactionHandler property
