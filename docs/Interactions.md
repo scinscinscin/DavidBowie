@@ -6,7 +6,7 @@ Interactions are the technical name for slash commands
 
 -   An Express server is started which the Discord API would send a POST request to whenever someone uses a slash command.
 
--   The [interactionsLoader](../daemons/interactionsLoader.ts) loads all the interactions in [interactions/](../interactions/) and compares them to a list of commands that the Discord API returns. It then takes takes the measure to create, edit, or remove commands as needed.
+-   The [interactionsLoader](src/daemons/interactionsLoader.ts) loads all the interactions in [interactions/](src/interactions/) and compares them to a list of commands that the Discord API returns. It then takes takes the measure to create, edit, or remove commands as needed.
 
 ### User runs a command
 
@@ -14,4 +14,4 @@ The Express server calls the interactionsHandler, which looks at the request's b
 
 ### Interaction Flow
 
-![Interactions flow](../docs/assets/interactions_arch.png?raw=true "Diagram of interactions")
+![Interactions flow](./assets/interactions_arch.png?raw=true "Diagram of interactions")
