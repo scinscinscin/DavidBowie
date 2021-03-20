@@ -10,7 +10,7 @@ Interactions are the technical name for slash commands
 
 ### User runs a command
 
-The Express server calls the interactionsHandler, which looks at the request's body and calls the appropriate interaction's function. The function then returns a response that is sent to the handler, then express, which is stringified then sent to Discord in the response.
+The Express server calls the [interactionsHandler](../src/handlers/interactionsHandler.ts), which looks at the request's body and calls the appropriate interaction's function. The function then returns a response that is sent to the handler, then express, which is stringified then sent to Discord in the response.
 
 ### Interaction Flow
 
