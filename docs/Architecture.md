@@ -15,7 +15,3 @@ Here is an overview of what each folder under src/ is used for
 -   types - Contains the typescript types
 
 -   utils - Contains the shared utility functions for the bot
-
-### Interactions
-
-This bot uses an outgoing webhook to an express server to manage reactions instead of connecting to the gateway through a websocket connection.
