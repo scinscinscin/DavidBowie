@@ -57,7 +57,6 @@ let command: Command = {
     cmd: help,
     helpMsg: "Display this help message",
     category: "Utilities",
-    requiresAdmin: false,
     sendsMessage: true,
 };
 

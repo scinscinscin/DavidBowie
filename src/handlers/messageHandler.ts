@@ -1,23 +1,8 @@
-import fs from "fs";
 import { Message } from "discord.js";
-import {
-    Command,
-    CommandInput,
-    CommandOutput,
-    Commands,
-} from "../types/CommandTypes";
+import { CommandInput, CommandOutput } from "../types/CommandTypes";
+import { commands } from "../daemons/commandsLoader";
+import { messageBuilder } from "../utils/messageBuilder";
 const { client } = global;
-const sendMsg = require("../utils/sendMsg");
-
-//load commands
-const commands: Commands = {};
-fs.readdirSync("./src/commands/", { withFileTypes: true })
-    .filter((ent) => ent.isFile())
-    .map((file) => file.name.slice(0, -3))
-    .forEach((cmd) => {
-        let command: Command = require(`../commands/${cmd}`);
-        commands[command.cmd.name] = command;
-    });
 
 client.on(
     "message",
@@ -57,11 +42,9 @@ client.on(
         };
 
         let response: CommandOutput = await commands[command]["cmd"](params);
+        if (commands[command].sendsMessage === false) return; // command does not send anything
 
-        if (
-            (response === undefined || response.fields.length === 0) &&
-            commands[command].sendsMessage === true
-        ) {
+        if (response === undefined || response.fields.length === 0) {
             response = {
                 color: "red",
                 fields: [
@@ -73,6 +56,12 @@ client.on(
             };
         }
 
-        sendMsg(response, authorName, channel);
+        let sentMessage: Message = await channel.send(
+            messageBuilder(response, authorName)
+        );
+
+        if (commands[command]["callback"] !== undefined) {
+            commands[command]["callback"]!(sentMessage);
+        }
     }
 );

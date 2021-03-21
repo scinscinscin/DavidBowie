@@ -34,7 +34,6 @@ let command: Command = {
     cmd: info,
     helpMsg: "Display this help message",
     category: "Utilities",
-    requiresAdmin: false,
     sendsMessage: true,
 };
 

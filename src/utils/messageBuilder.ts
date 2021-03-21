@@ -1,14 +1,14 @@
-import Discord, { DMChannel, NewsChannel, TextChannel } from "discord.js";
-const colors = require("../../config/main.json").colors;
 import { CommandOutput } from "src/types/CommandTypes";
+import { MessageEmbed } from "discord.js";
 
-function sendMsg(
+const colors = require("../../config/main.json").colors;
+
+export function messageBuilder(
     response: CommandOutput,
-    author: string,
-    channel: TextChannel | DMChannel | NewsChannel
-) {
+    author: string
+): MessageEmbed {
     let { color, fields } = response; // Get the color, title, and message from the response object
-    let embed = new Discord.MessageEmbed()
+    let embed = new MessageEmbed()
         .setColor(colors[color])
         .setFooter(`Requested by: ${author}`)
         .setTimestamp();
@@ -17,7 +17,6 @@ function sendMsg(
     fields.forEach(({ title, body }) => {
         embed.addField(title, body);
     });
-    channel.send(embed);
-}
 
-module.exports = sendMsg;
+    return embed;
+}
