@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const port: number = 8080;
 global["expressServer"] = app.listen(port, () => {
-    console.log(`Express started on port ${port}`);
+    console.log(`[NORMAL] Express started on port ${port}`.green);
 });
 
 app.post("/", async (req, res) => {

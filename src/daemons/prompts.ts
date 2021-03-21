@@ -9,19 +9,18 @@ let commands: Commands = {
 };
 
 setTimeout(async () => {
-    console.log("Welcome to the David Bowie Terminal Interface!");
+    console.log("Welcome to the David Bowie Terminal Interface!".yellow);
     while (true) {
         const response = await prompts({
             type: "text",
             name: "res",
-            message: "What command do you want to run?",
+            message: "BowieTerm",
             validate: (res) =>
                 Object.keys(commands).includes(res)
                     ? true
-                    : `${res} is not a valid command`,
+                    : `${res} is not a valid command`.red,
         });
 
-        console.log(`OK, running ${response.res}`);
         commands[response.res]();
     }
 }, 1000);

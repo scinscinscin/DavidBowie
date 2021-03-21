@@ -1,11 +1,12 @@
 import fs from "fs";
 import Discord, { Client } from "discord.js";
+import "colors";
 
 const { token }: { token: string } = require("../config/token.json");
 const client: Client = (global["client"] = new Discord.Client());
 
 client.on("ready", async () => {
-    console.log(`Logged in to Discord!`);
+    console.log(`[NORMAL] Logged in to Discord!`.green);
     global["creator"] = await client.fetchApplication();
     global["bot"] = await client.user;
 
