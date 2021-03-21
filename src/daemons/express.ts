@@ -13,10 +13,8 @@ const app: Express = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-global["expressApp"] = app;
-
 const port: number = 8080;
-app.listen(port, () => {
+global["expressServer"] = app.listen(port, () => {
     console.log(`Express started on port ${port}`);
 });
 
