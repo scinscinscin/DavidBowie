@@ -4,5 +4,6 @@
         "yellow": "#f9dc43",
         "orange": "#f98c1b",
         "red": "#f48f97"
-    }
+    },
+    "clientUrl": "postgresql://postgres:password@localhost:5432"
 }

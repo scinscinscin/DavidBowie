@@ -16,6 +16,10 @@ tsc
 mv token_example.json token.json
 vim token.json
 
+# Setup migrations
+yarn migrations-create
+yarn migrations-run
+
 # Run
 yarn start
 ```
