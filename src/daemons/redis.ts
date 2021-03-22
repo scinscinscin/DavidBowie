@@ -3,6 +3,9 @@ const client: RedisClient = redis.createClient();
 client.FLUSHALL(); // rm -rf the db on startup
 
 client.on("error", function (error) {
+    console.log(
+        "[WARN] ==================== Redis Error ====================".red
+    );
     console.error(error);
 });
 
