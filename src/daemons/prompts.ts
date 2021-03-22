@@ -21,6 +21,8 @@ setTimeout(async () => {
                     : `${res} is not a valid command`.red,
         });
 
-        commands[response.res]();
+        try {
+            commands[response.res]();
+        } catch {}
     }
 }, 1000);
